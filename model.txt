@@ -1,0 +1,90 @@
+
+model{
+
+# Priors
+
+#------- NOT Infected
+alpha.lamN  ~ dnorm(0,0.01) # Average abundance of uninfected hosts the first season
+pN     ~ dunif(0,1) # Detection probability of uninfected hosts
+gammaN ~ dnorm(0,0.01)  # Gains rate of uninfected hosts
+phiN   ~ dunif(0,1) # Survival probability of uninfected hosts
+psi_NI ~ dunif(0,1) # Infection probability (transitioning from uninfected to infected)
+
+#------- Infected
+alpha.lamI  ~ dnorm(0,0.01)# Average abundance of infecteds the first season
+pI     ~ dunif(0,1) # Detection probability of infected
+gammaI ~ dnorm(0,0.01)  # Gains rate of infected
+phiI   ~ dunif(0,1) # Survival probability of infected
+psi_IN ~ dunif(0,1)  # Recovery probability (transitioning from infected to uninfected)
+
+#------ Informative priors
+delta0 ~ dnorm(-0.25, 0.1)
+delta1 ~ dnorm(0.5, 0.1)
+
+#------------ Ecological model
+#---- First season
+
+for(i in 1:R){
+  #------ Not infected
+    NN[i, 1] ~ dpois(alpha.lamN)
+
+  #----- Infected
+    NI[i, 1] ~ dpois(alpha.lamI)  
+}
+
+#------ All other seasons
+for(k in 2:K){
+
+  for(i in 1:R){
+
+    #------- Nost Infected
+
+    SN[i,k-1] ~ dbin(phiN, NN[i,k-1])  # Total survivors
+    TN[i,k-1] ~ dbin(psi_NI, SN[i,k-1])  # Survive, become infected
+
+    GN[i,k-1] ~ dpois(gammaN)   # Recruits
+
+    #------- Infected
+
+    SI[i,k-1] ~ dbin(phiI, NI[i,k-1] ) # Infecteds who survive
+    TI[i,k-1] ~ dbin(psi_IN, SI[i,k-1] ) # Get better, transition to uninfected
+
+    GI[i,k-1] ~ dpois(gammaI)  # Recruits
+
+# Totals
+
+  NN[i, k] <- SN[i,k-1] - TN[i,k-1] + GN[i,k-1] + TI[i,k-1]  
+  NI[i, k] <- SI[i,k-1] - TI[i,k-1] + GI[i,k-1]  + TN[i,k-1]  
+
+  }
+
+}
+
+#------------- Obervation model
+
+for(i in 1:R){
+
+    for(j in 1:T){
+
+      for(k in 1:K){
+
+#--------- Probability of detecting a host
+
+     yN[i, j, k] ~ dbin(pN, NN[i, k])
+     yI[i, j, k] ~ dbin(pI, NI[i, k]) 
+
+#-------- Probability of detecting the pathogen on a host
+
+    gI[i, j, k] ~ dsum(yI[i, j, k], (-1 * m[i, j, k])) 
+    gN[i, j, k] ~ dsum(yN[i, j, k], m[i, j, k]) 
+
+     m[i, j, k] ~ dbin(theta2[i, j, k], yI[i, j, k]) 	
+        theta2[i, j, k] <- 1 - theta[i, j, k]
+        logit(theta[i, j, k]) <- delta0 + delta1 * log(I[i, j, k]+1)
+
+    }
+  }
+}
+
+}
+

@@ -1,0 +1,75 @@
+
+model{
+ 
+# Prior
+beta_0 ~ dnorm(0, 0.368)
+beta_1 ~ dnorm(0, 0.368)
+gamma_0 ~ dnorm(0, 0.368)
+gamma_1 ~ dnorm(0, 0.368)
+
+sigma1 ~ dgamma(0.001, 0.001)   # Standard deviation
+tau1 <- 1 / (sigma1 * sigma1)   # Precision = (1/(sd * sd))
+
+sigma2 ~ dgamma(0.001, 0.001)   # Standard deviation
+tau2 <- 1 / (sigma2 * sigma2)   # Precision = (1/(sd * sd))
+
+sigma3 ~ dgamma(0.001, 0.001)   # Standard deviation
+tau3 <- 1 / (sigma3 * sigma3)   # Precision = (1/(sd * sd))
+
+psi ~ dunif(0, 1)
+lambda ~ dunif(0, 20)
+
+#-Ecological Likelihood
+ 
+for(i in 1:n.ind){  # For each individual i
+ 
+ z[i] ~ dbern(psi)  
+    # The true infection status, z, of the ith individual is a 
+    # Bernoulli random variable, with probability psi.
+ 
+ N[i] ~ dlnorm((lambda * z[i] + 0.001), tau1)  
+  # Given infection (z = 1), the infection intensity of 
+  # individual i is a random draw from a lognormal distributon.
+  # Notice here too we add the small offset 0.001 to 
+  # log(lambda) because log(0) is undefined.
+
+#-Sample Likelihood 
+ for(j in 1:n.sample){  # For each sample j
+ 
+  w[i, j] ~ dbern(p1.eff[i, j]) 
+    # The probability of detecting the pathogen on the ith 
+    # individual and jth sample is a Bernoulli random variable 
+    # with probability p1.eff given that the ith individual
+    # is infected (z = 1) 
+
+    p1.eff[i, j] <- p1[i, j] * z[i]
+    logit(p1[i, j]) <- beta_0 + beta_1 * log(N[i]+0.001)
+
+  m[i, j] ~ dlnorm(log(N[i] * w[i, j] + 0.001), tau2)
+    # We model sample pathogen infection intensity as a function of 
+    # true infection intensity of the ith individual (Ni modeled above)
+
+#-Diagnostic test Likelihood
+  for(k in 1:n.diagnostic){  # For each k diagnostic run
+ 
+    y[i, j, k] ~ dbern(p.eff[i, j, k]) 
+      # To account for imperfect pathogen detection caused 
+      # by diagnostic tests, we model the diagnostic test 
+      # detection probability, p2,i,j,k, from the ith individual
+      # on the jth swab on the kth qPCR run, given that the ith 
+      # individual and jth swab were infected (wi,j = 1), 
+      # as a Bernoulli random variable
+
+    p.eff[i, j, k] <- p2[i, j, k] * w[i, j]
+    logit(p2[i, j, k]) <- gamma_0 + gamma_1 * log(m[i, j]+0.001)
+      # We model diagnostic pathogen infection intensity as
+      # a function of true sample infection intensity (m[i,j])
+
+    x[i, j, k] ~ dlnorm(log(m[i, j] * y[i, j, k] + 0.001), tau3) 
+
+    } # ks
+  } # js
+} # is
+
+} 
+

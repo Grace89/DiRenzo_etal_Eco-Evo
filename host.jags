@@ -1,0 +1,36 @@
+
+
+model{
+
+# Priors
+for(s in 1:nstates){
+  lambda[s] ~ dnorm(0, 0.001)
+  p[s] ~ dunif(0, 1) 
+}
+
+# Ecological model
+for(i in 1:nsites){
+  for(s in 1:nstates){
+    G[s, i] ~ dpois(lambda[s])
+  }
+}
+
+# Observation model
+for(s in 1:nstates){
+  for(i in 1:nsites){
+    for(j in 1:nsurvey){
+      for(k in 1:iter){
+        N[s, i, j, k] ~ dbinom(p[s], G[s, i])
+      }
+    }
+  }
+}
+
+# Derived quantities
+for (i in 1:nsites){
+  T[i] <- G[1, i] + G[2, i]
+  D[i] <- G[2, i] / T[i]
+}
+
+}
+

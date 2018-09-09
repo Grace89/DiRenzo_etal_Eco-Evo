@@ -1,0 +1,55 @@
+
+
+model{
+
+# Priors
+omega ~ dunif(0, 10) 
+q ~ dunif(0, 1) 
+
+for (i in 1:nsites){ 
+  for (j in 1:nsurvey){
+    psi[i, j] ~ dbeta(1, 1)
+    # Proportion of infected hosts at site i captured in survey j
+  }
+}
+
+# Ecological model
+for (i in 1:nsites){ 
+  for (j in 1:nsurvey){ 
+    for (k in 1:Nhost[i, j]){
+      z[i, j, k] ~ dbern(psi[i, j])
+      w[i, j, k] <- 1 - z[i, j, k]
+      zR[i, j, k] ~ dpois(omega)T(1,)
+      # To use a truncated Poisson, add T(1,0) after dpois
+      R[i, j, k] <- zR[i, j, k] * z[i, j, k]
+    }
+  }
+}
+
+# Observation model
+for (i in 1:nsites){
+  for (j in 1:nsurvey){
+    for (k in 1:Nhost[i, j]){
+      for (m in 1:nsamples){
+        x[i, j, k, m] ~ dbinom(q, R[i, j, k])
+      }
+    }
+  }  
+}
+
+# Derived quantities
+for (i in 1:nsites){
+  for (j in 1:nsurvey){
+
+    # Sum up the number of hosts with infection intensity = 0 at site i captured in survey j
+    N[2, i, j] <- sum(z[i, j, 1:Nhost[i, j]])
+    # Sum up the number of hosts with infection intensity > 0 at site i captured in survey j
+    N[1, i, j] <- sum(w[i, j, 1:Nhost[i, j]])
+  }
+}
+
+omega.mean <- omega / (1 - exp(-omega))
+
+}
+
+

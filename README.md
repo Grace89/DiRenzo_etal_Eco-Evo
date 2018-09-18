@@ -1,6 +1,6 @@
-# DISEASE STRUCTURED N-MIXTURE MODELS: A PRACTICAL GUIDE TO MODEL DISEASE DYNAMICS USING COUNT DATA
+# Disease sturcutred N-Mixture models: A practical guide to model dieseas dynamics using count data
 
-### [GRAZIELLA V. DIRENZO](https://grazielladirenzo.weebly.com), [CHRISTIAN CHE-CASTALDO](https://github.com/CCheCastaldo), [SARAH P. SAUNDERS](https://sarahpsaunders.wordpress.com/), [EVAN H. CAMPBELL GRANT](https://www.usgs.gov/staff-profiles/evan-grant?qt-staff_profile_science_products=0#qt-staff_profile_science_products), & [ELISE F. ZIPKIN](https://msu.edu/user/ezipkin/)
+### [Graziella V. Direnzo](https://grazielladirenzo.weebly.com), [Christian Che-Castaldo](https://github.com/CCheCastaldo), [Sarah P. Saunders](https://sarahpsaunders.wordpress.com/), [Evan H. Campbell Grant](https://www.usgs.gov/staff-profiles/evan-grant?qt-staff_profile_science_products=0#qt-staff_profile_science_products), & [Elise F. Zipkin](https://msu.edu/user/ezipkin/)
 
 ### Methods in Ecology and Evolution (*In Revision after Review*)
 

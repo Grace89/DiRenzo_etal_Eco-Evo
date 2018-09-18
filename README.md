@@ -1,6 +1,6 @@
 # Disease sturcutred N-Mixture models: A practical guide to model dieseas dynamics using count data
 
-### [Graziella V. Direnzo](https://grazielladirenzo.weebly.com), [Christian Che-Castaldo](https://github.com/CCheCastaldo), [Sarah P. Saunders](https://sarahpsaunders.wordpress.com/), [Evan H. Campbell Grant](https://www.usgs.gov/staff-profiles/evan-grant?qt-staff_profile_science_products=0#qt-staff_profile_science_products), & [Elise F. Zipkin](https://msu.edu/user/ezipkin/)
+### [Graziella V. DiRenzo](https://grazielladirenzo.weebly.com), [Christian Che-Castaldo](https://github.com/CCheCastaldo), [Sarah P. Saunders](https://sarahpsaunders.wordpress.com/), [Evan H. Campbell Grant](https://www.usgs.gov/staff-profiles/evan-grant?qt-staff_profile_science_products=0#qt-staff_profile_science_products), & [Elise F. Zipkin](https://msu.edu/user/ezipkin/)
 
 ### Methods in Ecology and Evolution (*In Revision after Review*)
 

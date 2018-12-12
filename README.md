@@ -17,4 +17,4 @@ ________________________________________________________________________________
 4. Managers rely on accurate and precise estimates of disease dynamics to develop strategies to mitigate pathogen impacts on host populations. At a time when pathogens pose one of the greatest threats to biodiversity, statistical methods that lead to robust inferences on host populations are critically needed for rapid, rather than incremental, assessments of the impacts of emerging infectious diseases.
 
 ## Code
-See the following subdirectories for code: [SupportingInformation](https://github.com/Grace89/DiRenzo_etal_MEE_in_review/blob/master/Appendix_09_Nov_2018.Rmd)
+See the following subdirectories for code: [SupportingInformation](https://github.com/zipkinlab/DiRenzo_etal_2019_EcolAndEvol/blob/master/Appendix_09_Nov_2018.Rmd)

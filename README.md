@@ -1,8 +1,8 @@
-# DISEASE STRUCTURED N-MIXTURE MODELS: A PRACTICAL GUIDE TO MODEL DISEASE DYNAMICS USING COUNT DATA
+# Disease sturcutred N-Mixture models: A practical guide to model disease dynamics using count data
 
-### [GRAZIELLA V. DIRENZO](https://grazielladirenzo.weebly.com), [CHRISTIAN CHE-CASTALDO](https://github.com/CCheCastaldo), [SARAH P. SAUNDERS](https://sarahpsaunders.wordpress.com/), [EVAN H. CAMPBELL GRANT](https://www.usgs.gov/staff-profiles/evan-grant?qt-staff_profile_science_products=0#qt-staff_profile_science_products), & [ELISE F. ZIPKIN](https://msu.edu/user/ezipkin/)
+### [Graziella V. DiRenzo](https://grazielladirenzo.weebly.com), [Christian Che-Castaldo](https://github.com/CCheCastaldo), [Sarah P. Saunders](https://sarahpsaunders.wordpress.com/), [Evan H. Campbell Grant](https://www.usgs.gov/staff-profiles/evan-grant?qt-staff_profile_science_products=0#qt-staff_profile_science_products), & [Elise F. Zipkin](https://msu.edu/user/ezipkin/)
 
-### Methods in Ecology and Evolution (*In Revision after Review*)
+### Ecology & Evolution
 
 ### Please contact the first author for questions about the code: Graziella DiRenzo (grace.direnzo@gmail.com)
 __________________________________________________________________________________________________________________________________________
@@ -17,4 +17,4 @@ ________________________________________________________________________________
 4. Managers rely on accurate and precise estimates of disease dynamics to develop strategies to mitigate pathogen impacts on host populations. At a time when pathogens pose one of the greatest threats to biodiversity, statistical methods that lead to robust inferences on host populations are critically needed for rapid, rather than incremental, assessments of the impacts of emerging infectious diseases.
 
 ## Code
-See the following subdirectories for code: [SupportingInformation](https://github.com/Grace89/DiRenzo_etal_MEE_in_review/blob/master/Appendix_02_SEPT_2018.Rmd)
+See the following subdirectories for code: [SupportingInformation](https://github.com/zipkinlab/DiRenzo_etal_2019_EcolAndEvol/blob/master/Appendix_09_Nov_2018.Rmd)
